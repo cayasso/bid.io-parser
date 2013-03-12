@@ -42,3 +42,8 @@
   - `data` (`Object`) bid `data`.
   - `id` (`Number`) bid `id`.
 
+## Running Tests
+
+  To run the test suite just do:
+
+  `$ make test`
