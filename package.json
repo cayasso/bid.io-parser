@@ -1,0 +1,16 @@
+{
+  "name": "bid.io-parser",
+  "version": "0.1.0",
+  "description": "bid.io protocol parser",
+  "author": {
+    "name": "Jonathan Brumley",
+    "email": "cayasso@gmail.com"
+  },
+  "dependencies": {
+    "debug": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "expect.js": "*"
+  }
+}
