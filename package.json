@@ -6,6 +6,10 @@
     "name": "Jonathan Brumley",
     "email": "cayasso@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:18techs/bid.io-parser.git"
+  },
   "dependencies": {
     "debug": "*"
   },
