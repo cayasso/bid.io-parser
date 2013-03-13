@@ -4,13 +4,6 @@
  */
 
 var debug = require('debug')('bid.io-parser');
-var json;
-
-try {
-  json = require('json');
-} catch(e){
-  json = JSON;
-}
 
 /**
  * Protocol version.
@@ -108,12 +101,12 @@ exports.encode = function(obj){
 
   // immediately followed by the bid id
   if (null != obj.id) {
-      str += obj.id;
+    str += obj.id;
   }
 
   // json data
   if (null != obj.data) {
-      str += json.stringify(obj.data);
+    str += JSON.stringify(obj.data);
   }
 
   debug('encoded %j as %s', obj, str);
@@ -157,7 +150,7 @@ exports.decode = function (str) {
   // look up json data
   if (str.charAt(++i)) {
     try {
-      p.data = json.parse(str.substr(i));
+      p.data = JSON.parse(str.substr(i));
     } catch(e){ console.log(e);
       return error(e);
     }
