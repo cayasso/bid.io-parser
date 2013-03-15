@@ -2,6 +2,8 @@ var parser = require('..');
 var expect = require('expect.js');
 var encode = parser.encode;
 var decode = parser.decode;
+var packets = parser.packets;
+var packetslist = parser.packetslist;
 
 // tests encoding and decoding a packet
 
@@ -11,19 +13,19 @@ function test(obj){
 
 describe('parser', function(){
 
-  it('exposes types', function(){
-    expect(parser.JOIN).to.be.a('number');
-    expect(parser.LEAVE).to.be.a('number');
-    expect(parser.FETCH).to.be.a('number');
-    expect(parser.LOCK).to.be.a('number');
-    expect(parser.UNLOCK).to.be.a('number');
-    expect(parser.COMPLETE).to.be.a('number');
-    expect(parser.ERROR).to.be.a('number');
+  it('exposes packet types', function(){
+    expect(packets.fetch).to.be.a('number');
+    expect(packets.query).to.be.a('number');
+    expect(packets.lock).to.be.a('number');
+    expect(packets.unlock).to.be.a('number');
+    expect(packets.pending).to.be.a('number');
+    expect(packets.complete).to.be.a('number');
+    expect(packets.error).to.be.a('number');
   });
 
   it('encodes fetch', function(){
     test({
-      type: parser.LOCK,
+      type: 'fetch',
       id: 123456,
       data: { owner: { id: 123456, name: 'a' } }
     });
@@ -31,7 +33,7 @@ describe('parser', function(){
 
   it('encodes lock', function(){
     test({
-      type: parser.LOCK,
+      type: 'lock',
       id: 123456,
       data: { owner: { id: 123456, name: 'a' } }
     });
@@ -39,7 +41,7 @@ describe('parser', function(){
 
   it('encodes unlock', function(){
     test({
-      type: parser.LOCK,
+      type: 'unlock',
       id: 123456,
       data: { owner: { id: 123456 } }
     });
@@ -47,7 +49,7 @@ describe('parser', function(){
 
   it('encodes complete', function(){
     test({
-      type: parser.LOCK,
+      type: 'complete',
       id: 123456,
       data: { owner: { id: 123456, name: 'a' } }
     });

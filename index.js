@@ -19,71 +19,29 @@ exports.protocol = 1;
  * @api public
  */
 
-exports.types = [
-  'JOIN',
-  'LEAVE',
-  'FETCH',
-  'LOCK',
-  'UNLOCK',
-  'COMPLETE',
-  'ERROR'
-];
+var packets = exports.packets = {
+  fetch:    0,
+  query:    1,
+  lock:     2,
+  unlock:   3,
+  pending:  4,
+  complete: 5,
+  error:    6
+};
 
 /**
- * Packet type `join`.
+ * Packet keys.
  *
  * @api public
  */
 
-exports.JOIN = 0;
+var packetslist = exports.packetslist = keys(packets);
 
 /**
- * Packet type `leave`.
- *
- * @api public
+ * Premade error packet.
  */
 
-exports.LEAVE = 1;
-
-/**
- * Packet type `fetch`.
- *
- * @api public
- */
-
-exports.FETCH = 2;
-
-/**
- * Packet type `lock`.
- *
- * @api public
- */
-
-exports.LOCK = 3;
-
-/**
- * Packet type `unlock`.
- *
- * @api public
- */
-
-exports.UNLOCK = 4;
-
-/**
- * Packet type `complete`.
- *
- * @api public
- */
-
-exports.COMPLETE = 5;
-
-/**
- * Packet type `error`.
- *
- * @api public
- */
-
-exports.ERROR = 6;
+var error = { type: 'error', data: 'parser error' };
 
 /**
  * Encode.
@@ -97,7 +55,7 @@ exports.encode = function(obj){
   var str = '';
 
   // first is type
-  str += obj.type;
+  str += packets[obj.type];
 
   // immediately followed by the bid id
   if (null != obj.id) {
@@ -128,9 +86,8 @@ exports.decode = function (str) {
   var d = 0;
 
   // look up type
-  p.type = Number(str.charAt(0));
-
-  if (null == exports.types[p.type]) return error();
+  p.type = packetslist[Number(str.charAt(0))];
+  if (null == p.type) return error;
 
   // look up id
   var next = str.charAt(i + 1);
@@ -151,8 +108,8 @@ exports.decode = function (str) {
   if (str.charAt(++i)) {
     try {
       p.data = JSON.parse(str.substr(i));
-    } catch(e){ console.log(e);
-      return error(e);
+    } catch(e){
+      return error;
     }
   }
 
@@ -160,9 +117,21 @@ exports.decode = function (str) {
   return p;
 };
 
-function error(data){
-  return {
-    type: exports.ERROR,
-    message: 'parser error'
-  };
+/**
+ * Gets the keys for an object.
+ *
+ * @return {Array} keys
+ * @api private
+ */
+
+function keys (obj){
+  if (Object.keys) return Object.keys(obj);
+  var arr = [];
+  var has = Object.prototype.hasOwnProperty;
+  for (var i in obj) {
+    if (has.call(obj, i)) {
+      arr.push(i);
+    }
+  }
+  return arr;
 }
