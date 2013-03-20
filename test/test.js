@@ -20,6 +20,8 @@ describe('parser', function(){
     expect(packets.unlock).to.be.a('number');
     expect(packets.pending).to.be.a('number');
     expect(packets.complete).to.be.a('number');
+    expect(packets.forcelock).to.be.a('number');
+    expect(packets.forceunlock).to.be.a('number');
     expect(packets.error).to.be.a('number');
   });
 
@@ -39,9 +41,25 @@ describe('parser', function(){
     });
   });
 
+  it('encodes forcelock', function(){
+    test({
+      type: 'forcelock',
+      id: 123456,
+      data: { owner: { id: 123456, name: 'a' } }
+    });
+  });
+
   it('encodes unlock', function(){
     test({
       type: 'unlock',
+      id: 123456,
+      data: { owner: { id: 123456 } }
+    });
+  });
+
+  it('encodes forceunlock', function(){
+    test({
+      type: 'forceunlock',
       id: 123456,
       data: { owner: { id: 123456 } }
     });
