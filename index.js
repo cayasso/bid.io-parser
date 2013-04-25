@@ -85,6 +85,8 @@ exports.decode = function (str) {
 
   var p = {}, i = 0;
 
+  if (null == str) return error;
+
   // look up type
   p.type = packetslist[Number(str.charAt(0))];
   if (null == p.type) return error;
