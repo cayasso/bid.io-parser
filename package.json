@@ -1,6 +1,6 @@
 {
   "name": "bid.io-parser",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "bid.io protocol parser",
   "author": {
     "name": "Jonathan Brumley",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cayasso/bid.io.git"
+    "url": "git://github.com/cayasso/bid.io-parser.git"
   },
   "dependencies": {
     "debug": "*"
