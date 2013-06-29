@@ -28,7 +28,8 @@ var packets = exports.packets = {
   complete:     5,
   claim:        6,
   forceunlock:  7,
-  error:        8
+  error:        8,
+  update:       9
 };
 
 /**

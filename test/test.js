@@ -73,4 +73,12 @@ describe('parser', function(){
     });
   });
 
+  it('encodes update', function(){
+    test({
+      type: 'update',
+      id: 123456,
+      data: { update: { name: 'a' } }
+    });
+  });
+
 });
